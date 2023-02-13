@@ -13,10 +13,23 @@ public class JpaMain {
         tx.begin();
         try {
 
+            Member2 member1 = new Member2();
+            member1.setMbUserName("AA");
             Member2 member2 = new Member2();
-            member2.setMbUserName("AA");
+            member2.setMbUserName("BB");
+            Member2 member3 = new Member2();
+            member3.setMbUserName("CC");
 
-            em.persist(member2);
+            System.out.println("=================");
+            em.persist(member1); // 1, 51
+            em.persist(member2); // memory
+            em.persist(member3); // memory
+            System.out.println("member1.getMbId() = " + member1.getMbId());
+            System.out.println("member2.getMbId() = " + member2.getMbId());
+            System.out.println("member3.getMbId() = " + member3.getMbId());
+            System.out.println("=================");
+
+
 
             // persistence db ddl auto 설정 test
 //            Member1 member1 = new Member1();
