@@ -13,23 +13,29 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Member member = new Member();
-            member.setId(1L);
-            member.setUsername("A");
-            member.setRoleType(RoleType.USER);
-            em.persist(member);
+            Member2 member2 = new Member2();
+            member2.setMbUserName("AA");
 
-            Member member2 = new Member();
-            member2.setId(2L);
-            member2.setUsername("B");
-            member2.setRoleType(RoleType.ADMIN);
             em.persist(member2);
 
-            Member member3 = new Member();
-            member3.setId(3L);
-            member3.setUsername("C");
-            member3.setRoleType(RoleType.GUEST);
-            em.persist(member3);
+            // persistence db ddl auto 설정 test
+//            Member1 member1 = new Member1();
+//            member1.setId(1L);
+//            member1.setUsername("A");
+//            member1.setRoleType(RoleType.USER);
+//            em.persist(member1);
+//
+//            Member1 member12 = new Member1();
+//            member12.setId(2L);
+//            member12.setUsername("B");
+//            member12.setRoleType(RoleType.ADMIN);
+//            em.persist(member12);
+//
+//            Member1 member13 = new Member1();
+//            member13.setId(3L);
+//            member13.setUsername("C");
+//            member13.setRoleType(RoleType.GUEST);
+//            em.persist(member13);
 
 //            Member findMember = em.find(Member.class, 1L);
 //            findMember.setName("HelloJPA");
