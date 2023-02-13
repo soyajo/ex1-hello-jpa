@@ -1,6 +1,8 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -38,7 +40,8 @@ public class Member {
     @Id
     private Long id;
 
-    @Column(name = "name")
+    // unique 제약조건 잘 안씀2
+    @Column(name = "name", nullable = false, columnDefinition = "varchar(100) default 'EMPTY'")
     private String username;
 
     private Integer age;
@@ -46,14 +49,27 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
     // 날짜 어노테이션
+    // TemporalType.DATE
+    // TemporalType.TIME
+    // TemporalType.TIMESTAMP
+    // 자바 8 이전
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
+
+    // 자바 8 이상
+    private LocalDate testLocalDate;
+    private LocalDateTime testLocalDateTime;
+
     // 큰 컨텐츠를 넣을 때 사용
+    // 문자면 CLOB 으로 맵핑
+    // 나머지는 BLOB 맵핑
     @Lob
     private String description;
+
+    // 디비 컬럼과 매칭을 안하고 메모리에서만 사용하는 컬럼 지정 매핑 x
+    // @Transient
 
     public Long getId() {
         return id;

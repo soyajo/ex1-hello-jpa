@@ -13,6 +13,24 @@ public class JpaMain {
         tx.begin();
         try {
 
+            Member member = new Member();
+            member.setId(1L);
+            member.setUsername("A");
+            member.setRoleType(RoleType.USER);
+            em.persist(member);
+
+            Member member2 = new Member();
+            member2.setId(2L);
+            member2.setUsername("B");
+            member2.setRoleType(RoleType.ADMIN);
+            em.persist(member2);
+
+            Member member3 = new Member();
+            member3.setId(3L);
+            member3.setUsername("C");
+            member3.setRoleType(RoleType.GUEST);
+            em.persist(member3);
+
 //            Member findMember = em.find(Member.class, 1L);
 //            findMember.setName("HelloJPA");
 
@@ -68,6 +86,7 @@ public class JpaMain {
             tx.commit();
 
         } catch (Exception e) {
+            e.printStackTrace();
             tx.rollback();
         }finally {
             em.close();
