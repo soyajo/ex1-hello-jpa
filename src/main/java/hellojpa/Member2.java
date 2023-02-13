@@ -42,7 +42,7 @@ public class Member2 {
      *
      * TABLE : 키 생성용 테이블 사용, 모든 DB에서 사용
      * @TableGenerator 필요
-     *  - table을 생성해서 시퀀스처럼 사용
+     *  - table을 생성해서 시퀀스처럼 사용1
      *  - allocationSize : 애플리케이션 올라갈때 50개로 지정되있으면 insert sql 이 50번 실행되기 전까지 저장되어있다가 다쓰면 또 다시 51 ~ 100 까지 저장됨.
      *  - 장점 : 모든 디비에서 사용가능
      *  - 단점 : 성능 이슈
