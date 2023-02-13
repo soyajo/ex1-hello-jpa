@@ -27,12 +27,30 @@ public class JpaMain {
 ////            em.detach(member);
 //            System.out.println("==== AFTER =====");
 
-            Member findMember1 = em.find(Member.class, 101L);
-            // 한번 조회된 쿼리는 1차 캐시에 가져옴
-            Member findMember2 = em.find(Member.class, 101L);
 
-            System.out.println("result = " + (findMember1 == findMember2));
-            // db에 쿼리 적용
+
+//            변경 감지 (dirty checking) - member.update()가 존재하지 않다. 영속성 컨텍스트가 처리함.
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAAAA");
+            em.detach(member);
+
+            // 영속성 컨텍스트 초기화
+//            em.clear();
+
+            // 영속성 컨텍스트 종료
+//            em.close();
+
+//            Member member = new Member(200L, "member200");
+//            em.persist(member);
+//            em.flush();
+
+            System.out.println("=====================");
+//            Member findMember1 = em.find(Member.class, 101L);
+//            //한번 조회된 쿼리는 1차 캐시에 가져옴
+//            Member findMember2 = em.find(Member.class, 101L);
+
+//            System.out.println("result = " + (findMember1 == findMember2));
+            //db에 쿼리 적용
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
