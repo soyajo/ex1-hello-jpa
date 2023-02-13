@@ -17,7 +17,17 @@
             <property name="hibernate.use_sql_comments" value="true"/>
             <!--jpa 배치형식으로 commit-->
             <property name="hibernate.jdbc.batch_size" value="10"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <!--
+                애플리케이션이 시작했을 때 DB DDL을 자동으로 실행하는 것
+                왠만하면 사용하면 안됨.
+                운영장비는 절대 사용하면 안됨.
+                validate 까지만 가능
+                초기 개발할 때, 디비 다듬을 때 사용.(create)
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+<!--            <property name="hibernate.hbm2ddl.auto" value="create-drop" />-->
+<!--            <property name="hibernate.hbm2ddl.auto" value="validate" />-->
+<!--            <property name="hibernate.hbm2ddl.auto" value="none" />-->
         </properties>
     </persistence-unit>
 </persistence>
