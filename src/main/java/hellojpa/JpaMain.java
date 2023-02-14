@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.lang.reflect.Member;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args){
@@ -112,20 +113,38 @@ public class JpaMain {
 
             Member2 member = new Member2();
             member.setMbUserName("member1");
-            member.setTeam(team);
+            // 연관관계 편의 메서드 - 둘 중 하나만
+            member.changeTeam(team); // **
             em.persist(member);
+
+            // 연관관계 편의 메서드 - 둘 중 하나만
+//            team.addMember(member); // **
 
             em.flush();
             em.clear();
 
-            Member2 findMember = em.find(Member2.class, member.getMbId());
+            Team findTeam = em.find(Team.class, team.getId()); // 1차 캐시
+            List<Member2> members = findTeam.getMembers();
 
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = " + findTeam.getName());
+            System.out.println("=================");
+            for (Member2 member1 : members) {
+                System.out.println("member1.getMbId() = " + member1.getMbId());
+            }
+            System.out.println("=================");
+
+//            Member2 findMember = em.find(Member2.class, member.getMbId());
+//            List<Member2> members = findMember.getTeam().getMembers();
+//
+//            for (Member2 m : members) {
+//                System.out.println("m.getMbUserName() = " + m.getMbUserName());
+//            }
+
+//            Team findTeam = findMember.getTeam();
+//            System.out.println("findTeam = " + findTeam.getName());
 
             // 변경
-            Team newTeam = em.find(Team.class, 100L);
-            findMember.setTeam(newTeam);
+//            Team newTeam = em.find(Team.class, 100L);
+//            findMember.setTeam(newTeam);
 
             //db에 쿼리 적용
             tx.commit();

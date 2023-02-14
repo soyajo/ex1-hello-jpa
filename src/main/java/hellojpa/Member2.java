@@ -84,6 +84,11 @@ public class Member2 {
         this.team = team;
     }
 
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+    }
+
     public Long getMbId() {
         return mbId;
     }
@@ -99,5 +104,6 @@ public class Member2 {
     public void setMbUserName(String mbUserName) {
         this.mbUserName = mbUserName;
     }
+
 }
 
