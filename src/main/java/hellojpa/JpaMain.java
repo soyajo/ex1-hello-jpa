@@ -124,7 +124,7 @@ public class JpaMain {
             System.out.println("findTeam = " + findTeam.getName());
 
             // 변경
-            Team newTeam = em.fi핑nd(Team.class, 100L);
+            Team newTeam = em.find(Team.class, 100L);
             findMember.setTeam(newTeam);
 
             //db에 쿼리 적용
