@@ -53,21 +53,35 @@ public class Member2 {
      */
     @Id
     @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    , generator = "member_seq_generator" // 시퀀스 적용
+            strategy = GenerationType.AUTO
+//    , generator = "member_seq_generator" // 시퀀스 적용
 //            , generator = "member_seq_generator" // table 적용
     )
-    @Column(name = "mb_id")
+    @Column(name = "MB_ID")
     private Long mbId;
 
-    @Column(name = "user_name", nullable = false)
+    @Column(name = "USER_NAME", nullable = false)
     private String mbUserName;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     public Member2() {}
 
     public Member2(Long mbId, String mbUserName) {
         this.mbId = mbId;
         this.mbUserName = mbUserName;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public Long getMbId() {

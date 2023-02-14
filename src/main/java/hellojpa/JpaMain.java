@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.lang.reflect.Member;
 
 public class JpaMain {
     public static void main(String[] args){
@@ -13,21 +14,24 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Member2 member1 = new Member2();
-            member1.setMbUserName("AA");
-            Member2 member2 = new Member2();
-            member2.setMbUserName("BB");
-            Member2 member3 = new Member2();
-            member3.setMbUserName("CC");
 
-            System.out.println("=================");
-            em.persist(member1); // 1, 51
-            em.persist(member2); // memory
-            em.persist(member3); // memory
-            System.out.println("member1.getMbId() = " + member1.getMbId());
-            System.out.println("member2.getMbId() = " + member2.getMbId());
-            System.out.println("member3.getMbId() = " + member3.getMbId());
-            System.out.println("=================");
+            // seqence allocation 속성 테스트
+//            Member2 member1 = new Member2();
+//            member1.setMbUserName("AA");
+//            Member2 member2 = new Member2();
+//            member2.setMbUserName("BB");
+//            Member2 member3 = new Member2();
+//            member3.setMbUserName("CC");
+//
+//            System.out.println("=================");
+//            em.persist(member1); // 1, 51
+//            em.persist(member2); // memory
+//            em.persist(member3); // memory
+//            System.out.println("member1.getMbId() = " + member1.getMbId());
+//            System.out.println("member2.getMbId() = " + member2.getMbId());
+//            System.out.println("member3.getMbId() = " + member3.getMbId());
+//            System.out.println("=================");
+
 
 
 
@@ -94,12 +98,34 @@ public class JpaMain {
 //            em.persist(member);
 //            em.flush();
 
-            System.out.println("=====================");
+//            System.out.println("=====================");
 //            Member findMember1 = em.find(Member.class, 101L);
 //            //한번 조회된 쿼리는 1차 캐시에 가져옴
 //            Member findMember2 = em.find(Member.class, 101L);
 
 //            System.out.println("result = " + (findMember1 == findMember2));
+
+            // 저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member2 member = new Member2();
+            member.setMbUserName("member1");
+            member.setTeam(team);
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            Member2 findMember = em.find(Member2.class, member.getMbId());
+
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
+
+            // 변경
+            Team newTeam = em.fi핑nd(Team.class, 100L);
+            findMember.setTeam(newTeam);
 
             //db에 쿼리 적용
             tx.commit();
