@@ -107,29 +107,36 @@ public class JpaMain {
 //            System.out.println("result = " + (findMember1 == findMember2));
 
             // 저장
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
 
+
+            // 1대다 관계 - update 쿼리가 하나 더 나감.
+            // @JoinColumn 을 안쓰면 join 테이블이 하나 더 생김.
             Member2 member = new Member2();
             member.setMbUserName("member1");
-            // 연관관계 편의 메서드 - 둘 중 하나만
-            member.changeTeam(team); // **
             em.persist(member);
+
+            // 연관관계 편의 메서드 - 둘 중 하나만
+//            member.changeTeam(team); // **
+            Team team = new Team();
+            team.setName("TeamA");
+            team.getMembers().add(member);
+
+            em.persist(team);
+
 
             // 연관관계 편의 메서드 - 둘 중 하나만
 //            team.addMember(member); // **
 
-            em.flush();
-            em.clear();
+//            em.flush();
+//            em.clear();
 
-            Team findTeam = em.find(Team.class, team.getId()); // 1차 캐시
-            List<Member2> members = findTeam.getMembers();
+//            Team findTeam = em.find(Team.class, team.getId()); // 1차 캐시
+//            List<Member2> members = findTeam.getMembers();
 
             System.out.println("=================");
-            for (Member2 member1 : members) {
-                System.out.println("member1.getMbId() = " + member1.getMbId());
-            }
+//            for (Member2 member1 : members) {
+//                System.out.println("member1.getMbId() = " + member1.getMbId());
+//            }
             System.out.println("=================");
 
 //            Member2 findMember = em.find(Member2.class, member.getMbId());

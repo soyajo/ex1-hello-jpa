@@ -66,7 +66,7 @@ public class Member2 {
 //    private Long teamId;
 
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    @JoinColumn(name = "TEAM_ID",insertable = false,updatable = false) // 읽기 전용
     private Team team;
 
     public Member2() {}
@@ -76,18 +76,18 @@ public class Member2 {
         this.mbUserName = mbUserName;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
-    }
+//    public Team getTeam() {
+//        return team;
+//    }
+//
+//    public void setTeam(Team team) {
+//        this.team = team;
+//    }
+//
+//    public void changeTeam(Team team) {
+//        this.team = team;
+//        team.getMembers().add(this);
+//    }
 
     public Long getMbId() {
         return mbId;
