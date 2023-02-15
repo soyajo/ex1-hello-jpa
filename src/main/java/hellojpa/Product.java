@@ -9,7 +9,7 @@ public class Product {
     @Id @GeneratedValue
     @Column(name = "PRODUCT_ID")
     private Long id;
-    @Column(name = "PRODUCT_NAME")
+
     private String name;
 
     public Long getId() {
@@ -18,5 +18,13 @@ public class Product {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -67,21 +67,14 @@ public class Member2 {
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID",insertable = false,updatable = false) // 읽기 전용
-    private Team team;
+//    @ManyToOne
+//    @JoinColumn(name = "TEAM_ID",insertable = false,updatable = false) // 읽기 전용
+//    private Team team;
 
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
+//    @OneToOne
+//    @JoinColumn(name = "LOCKER_ID")
+//    private Locker locker;
 
-
-    public Member2() {}
-
-    public Member2(Long mbId, String mbUserName) {
-        this.mbId = mbId;
-        this.mbUserName = mbUserName;
-    }
 
 //    public Team getTeam() {
 //        return team;

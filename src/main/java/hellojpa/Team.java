@@ -11,18 +11,10 @@ public class Team {
     @Column(name = "TEAM_ID")
     private Long id;
     private String name;
-
-    @OneToMany()
-    @JoinColumn(name = "TEAM_ID")
-    private List<Member2> members = new ArrayList<>();
-
-    public List<Member2> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member2> members) {
-        this.members = members;
-    }
+//
+//    @OneToMany()
+//    @JoinColumn(name = "TEAM_ID")
+//    private List<Member2> members = new ArrayList<>();
 
     public Long getId() {
         return id;

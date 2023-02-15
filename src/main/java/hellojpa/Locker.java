@@ -12,8 +12,8 @@ public class Locker {
     @Column(name = "LOCKER_NAME")
     private String name;
 
-    @OneToOne(mappedBy = "locker")
-    private Member2 member;
+//    @OneToOne(mappedBy = "locker")
+//    private Member2 member;
 
     public Long getId() {
         return id;
