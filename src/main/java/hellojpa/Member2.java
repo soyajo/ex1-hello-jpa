@@ -1,6 +1,8 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ import java.util.List;
 //        pkColumnValue = "member_seq",
 //        allocationSize = 1
 //)
-public class Member2 {
+public class Member2 extends BaseEntity{
 
     /**
      * 직접 할당 : Id만 사용
@@ -64,6 +66,9 @@ public class Member2 {
 
     @Column(name = "USER_NAME", nullable = false)
     private String mbUserName;
+
+
+
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 

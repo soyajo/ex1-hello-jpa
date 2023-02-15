@@ -5,6 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.lang.reflect.Member;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class JpaMain {
@@ -167,6 +169,15 @@ public class JpaMain {
 
             Movie findMovie = em.find(Movie.class, movie.getId());
             System.out.println("findMovie = " + findMovie);
+
+            Member2 member = new Member2();
+            member.setMbUserName("soya");
+            member.setCreatedBy("kim");
+            member.setCreatedDate(LocalDateTime.now());
+            member.setLastModifiedBy("soya");
+            member.setLastModifiedDate(LocalDateTime.now());
+
+            em.persist(member);
 
             //db에 쿼리 적용
             tx.commit();

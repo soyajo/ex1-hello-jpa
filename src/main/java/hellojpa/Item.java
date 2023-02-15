@@ -4,13 +4,13 @@ import javax.persistence.*;
 
 @Entity
 // 조인전략
-//@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 // 단일테이블전략
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 // 구현 클래스마다 테이블 전략
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(name = "DIS_TYPE")
-public class Item {
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "DTYPE")
+public abstract class Item {
 
     @Id @GeneratedValue
     private Long id;
