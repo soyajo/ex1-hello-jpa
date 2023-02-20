@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public class JpaMain {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -33,8 +33,6 @@ public class JpaMain {
 //            System.out.println("member2.getMbId() = " + member2.getMbId());
 //            System.out.println("member3.getMbId() = " + member3.getMbId());
 //            System.out.println("=================");
-
-
 
 
             // persistence db ddl auto 설정 test
@@ -178,24 +176,34 @@ public class JpaMain {
 //            em.persist(member);
 
 
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
+//            Team team = new Team();
+//            team.setName("teamA");
+//            em.persist(team);
+//            Member2 member1 = new Member2();
+//            member1.setMbUserName("member1");
+//            member1.setTeam(team);
+//            em.persist(member1);
+//            em.flush();
+//            em.clear();
+            // jpql
+//            List<Member2> list = em.createQuery("select m from Member2  m join fetch m.team ", Member2.class).getResultList();
 
-            Member2 member1 = new Member2();
-            member1.setMbUserName("member1");
-            member1.setTeam(team);
-            em.persist(member1);
 
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
 
             em.flush();
             em.clear();
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0);
 
-
-            List<Member2> list = em.createQuery("select m from Member2  m join fetch m.team ", Member2.class).getResultList();
-
-
-
+            em.remove(findParent);
 
 //            Member2 m = em.find(Member2.class, member1.getMbId());
             // 프록시 객체
@@ -223,7 +231,7 @@ public class JpaMain {
         } catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
-        }finally {
+        } finally {
             em.close();
         }
 
