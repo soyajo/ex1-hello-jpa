@@ -72,23 +72,28 @@ public class Member2 extends BaseEntity{
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "TEAM_ID",insertable = false,updatable = false) // 읽기 전용
-//    private Team team;
+    // LAZY(지연로딩) - 프록시 객체로 조회
+    // 실무에서는 거의 lazy로만 사용
+    // onetoone이랑 manytoone은 디펄트가 eager이다.
+    @ManyToOne(fetch = FetchType.LAZY)
+    // EAGER(즉시로딩) - 한방에 team 까지 조회가능
+//    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn()
+    private Team team;
 
 //    @OneToOne
 //    @JoinColumn(name = "LOCKER_ID")
 //    private Locker locker;
 
 
-//    public Team getTeam() {
-//        return team;
-//    }
-//
-//    public void setTeam(Team team) {
-//        this.team = team;
-//    }
-//
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
 //    public void changeTeam(Team team) {
 //        this.team = team;
 //        team.getMembers().add(this);

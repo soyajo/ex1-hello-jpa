@@ -1,9 +1,8 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
 import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -156,28 +155,67 @@ public class JpaMain {
 //            findMember.setTeam(newTeam);
 
 
-            Movie movie = new Movie();
-            movie.setDirector("aaa");
-            movie.setActor("bbb");
-            movie.setName("바람과 함께 사라지다");
-            movie.setPrice(10000);
+//            Movie movie = new Movie();
+//            movie.setDirector("aaa");
+//            movie.setActor("bbb");
+//            movie.setName("바람과 함께 사라지다");
+//            movie.setPrice(10000);
+//
+//            em.persist(movie);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Movie findMovie = em.find(Movie.class, movie.getId());
+//            System.out.println("findMovie = " + findMovie);
+//
+//            Member2 member = new Member2();
+//            member.setMbUserName("soya");
+//            member.setCreatedBy("kim");
+//            member.setCreatedDate(LocalDateTime.now());
+//            member.setLastModifiedBy("soya");
+//            member.setLastModifiedDate(LocalDateTime.now());
+//            em.persist(member);
 
-            em.persist(movie);
+
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Member2 member1 = new Member2();
+            member1.setMbUserName("member1");
+            member1.setTeam(team);
+            em.persist(member1);
+
 
             em.flush();
             em.clear();
 
-            Movie findMovie = em.find(Movie.class, movie.getId());
-            System.out.println("findMovie = " + findMovie);
 
-            Member2 member = new Member2();
-            member.setMbUserName("soya");
-            member.setCreatedBy("kim");
-            member.setCreatedDate(LocalDateTime.now());
-            member.setLastModifiedBy("soya");
-            member.setLastModifiedDate(LocalDateTime.now());
+            List<Member2> list = em.createQuery("select m from Member2  m join fetch m.team ", Member2.class).getResultList();
 
-            em.persist(member);
+
+
+
+//            Member2 m = em.find(Member2.class, member1.getMbId());
+            // 프록시 객체
+//            System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
+            // 시점에 프록시 초기화 후 select 문
+//            System.out.println("m.getTeam().getName() = " + m.getTeam().getName());
+//            System.out.println("m.getTeam().getClass() = " + m.getTeam().getClass());
+//            Member2 refMember = em.getReference(Member2.class, member1.getMbId());
+//            System.out.println("refMember.getClass() = " + refMember.getClass());
+//            refMember.getMbUserName();
+
+            // 프록시 강제 초기화
+//            Hibernate.initialize(refMember);
+
+//            System.out.println("findMember.getClass() = " + findMember.getClass());
+            // 프록시 인스턴스 초기화 여부 확인
+//            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+            // 프록시 클래스 확인 방법
+
+//            logic(refMember, findMember);
 
             //db에 쿼리 적용
             tx.commit();
@@ -191,6 +229,24 @@ public class JpaMain {
 
         emf.close();
 
+    }
+
+    private static void logic(Member2 m1, Member2 m2) {
+        System.out.println("m1 == m2 " + (m1 == m2));
+        System.out.println("m1 instanceof : " + (m1 instanceof Member2));
+        System.out.println("m2 instanceof : " + (m2 instanceof Member2));
+    }
+
+    private static void printMember(Member2 member) {
+        System.out.println("member.getMbUserName() = " + member.getMbUserName());
+    }
+
+    private static void printMemberAndTeam(Member2 member) {
+        String username = member.getMbUserName();
+        System.out.println("username = " + username);
+
+        Team team = member.getTeam();
+        System.out.println("team.getName() = " + team.getName());
     }
 
 }
