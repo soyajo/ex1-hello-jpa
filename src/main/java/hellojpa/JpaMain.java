@@ -189,21 +189,21 @@ public class JpaMain {
 //            List<Member2> list = em.createQuery("select m from Member2  m join fetch m.team ", Member2.class).getResultList();
 
 
-            Child child1 = new Child();
-            Child child2 = new Child();
-
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            em.persist(parent);
-
-            em.flush();
-            em.clear();
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildList().remove(0);
-
-            em.remove(findParent);
+//            Child child1 = new Child();
+//            Child child2 = new Child();
+//
+//            Parent parent = new Parent();
+//            parent.addChild(child1);
+//            parent.addChild(child2);
+//
+//            em.persist(parent);
+//
+//            em.flush();
+//            em.clear();
+//            Parent findParent = em.find(Parent.class, parent.getId());
+//            findParent.getChildList().remove(0);
+//
+//            em.remove(findParent);
 
 //            Member2 m = em.find(Member2.class, member1.getMbId());
             // 프록시 객체
@@ -224,6 +224,14 @@ public class JpaMain {
             // 프록시 클래스 확인 방법
 
 //            logic(refMember, findMember);
+            List<Member2> resultList = em.createQuery(
+                    "select m.mbUserName From Member2 m where m.mbUserName like '%Kim%'",
+                    Member2.class
+            ).getResultList();
+
+            for (Member2 member : resultList) {
+                System.out.println("member.getMbUserName() = " + member.getMbUserName());
+            }
 
             //db에 쿼리 적용
             tx.commit();
